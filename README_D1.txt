@@ -7,7 +7,7 @@ https://linux-sunxi.org/Allwinner_Nezha
 https://linux-sunxi.org/D1
 
 Build the system using the riscv-unknown-elf GNU toolchain using:
-$ make fs.ig
+$ make fs.img
 $ make
 
 This generates a binary kernel image in kernel/kernel.bin
@@ -58,7 +58,7 @@ Changes to MIT's xv6 RISC-V version:
 - uses a ram disk instead of a virtio disk
   The RAM disk is included with the kernel image (kernel/ramdisk.h)
   and is automatically regenerated when rebuilding the file system
-  using make fs.img
+  using "make fs.img"
 
 - Sets PLIC_CTRL to 1 to enable PLIC config modification from M-mode
 
