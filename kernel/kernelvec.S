@@ -109,7 +109,7 @@ timervec:
 	li a2, 10000000
         add a3, a3, a2
         sw a3, 0(a1)
-	li a3, 0
+	srli a3, a3, 32
         sw a3, 4(a1)
 
         # raise a supervisor software interrupt.

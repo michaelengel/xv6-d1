@@ -73,8 +73,9 @@ timerinit()
   // ask the CLINT for a timer interrupt.
   int interval = 1000000; // cycles; about 1/10th second in qemu.
 
-  *(uint32*)CLINT_MTIMECMP(id) = r_mtime() + 10000000;
-  *(uint32*)(CLINT_MTIMECMP(id)+4) = 0; // ???
+  uint64_t t = r_mtime() + 10000000;
+  *(uint32*)CLINT_MTIMECMP(id) = t & 0xffffffff;
+  *(uint32*)(CLINT_MTIMECMP(id)+4) = t >> 32; // ???
 
   // prepare information in scratch[] for timervec.
   // scratch[0..2] : space for timervec to save registers.

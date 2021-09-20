@@ -160,7 +160,6 @@ extern void sys_uart_putc(int, char);
 void
 uartintr(void)
 {
-//  sys_uart_putc(0, 'U');
   // read and process incoming characters.
   while(1){
     int c = uartgetc();
