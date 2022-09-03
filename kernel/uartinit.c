@@ -62,7 +62,14 @@ void sys_uart0_init(void)
     write32(addr + UART_DLH, 0x0);      //disable all interrupt
     write32(addr + UART_FCR, 0xf7);     //reset fifo
     write32(addr + UART_MCR, 0x0);      //uart mode
-    //set 115200
+
+    // clear busy condition
+    val = read32(addr + UART_IIR);
+    if (val == UART_IIR_BSY) {
+      val = read32(addr + UART_USR);
+    } 
+
+    // set 115200
     val = read32(addr + UART_LCR);
     val |= (1 << 7);                    //select Divisor Latch LS Register
     write32(addr + UART_LCR, val);
@@ -76,6 +83,7 @@ void sys_uart0_init(void)
     val &= ~0x1f;
     val |= (0x3 << 0) | (0 << 2) | (0x0 << 3); //8 bit, 1 stop bit,parity disabled
     write32(addr + UART_LCR, val);
-    write32(addr + UART_IER, 1); // only enable RX IRQ
+    write32(addr + UART_IER, UART_IER_ERDAI|UART_IER_ETHREI); 
+    // only enable RX IRQ
     // BUG:, system hangs when also enabling TX IRQ
 }

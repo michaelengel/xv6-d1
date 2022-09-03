@@ -58,6 +58,21 @@
 #define UART_LSR_DR		0x01    /* Receiver data ready */
 #define UART_LSR_BRK_ERROR_BITS	0x1E    /* BI, FE, PE, OE bits */
 
+/* Interrupt Enable Register */
+#define UART_IER_ERDAI    0x01    /* rx data recv'd       */
+#define UART_IER_ETHREI   0x02    /* tx reg. empty        */
+#define UART_IER_ELSI     0x04    /* rx line status       */
+#define UART_IER_EMSI     0x08    /* MODEM status         */
+
+/* Interrupt Identification Register */
+#define UART_IIR_NOINT    0x01    /* no interrupt pending */
+#define UART_IIR_IMA      0x06    /* interrupt identity:  */
+#define UART_IIR_LSI      0x06    /*  - rx line status    */
+#define UART_IIR_RDA      0x04    /*  - rx data recv'd    */
+#define UART_IIR_THR      0x02    /*  - tx reg. empty     */
+#define UART_IIR_MSI      0x00    /*  - MODEM status      */
+#define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
+
 void sys_uart0_init(void);
 void sys_uart_putc(uint8 uart_num, char c);
 char sys_uart_getc(uint8 uart_num);

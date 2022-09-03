@@ -9,6 +9,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include "uartinit.h"
 
 // the UART control registers are memory-mapped
 // at address UART0. this macro returns the
@@ -152,7 +153,7 @@ uartgetc(void)
   }
 }
 
-extern void sys_uart_putc(int, char);
+extern void sys_uart_putc(uint8, char);
 
 // handle a uart interrupt, raised because input has
 // arrived, or the uart is ready for more output, or
@@ -161,15 +162,22 @@ void
 uartintr(void)
 {
   // read and process incoming characters.
-  while(1){
-    int c = uartgetc();
-    if(c == -1)
-      break;
-    consoleintr(c);
+  virtual_addr_t addr = UART_BASE + 0 * 0x4000;
+  uint32 val = read32(addr + UART_LSR);
+
+  if (val & UART_LSR_DR) { // RX interrupt
+    while(1){
+      int c = uartgetc();
+      if(c == -1)
+        break;
+      consoleintr(c);
+    }
   }
 
-  // send buffered characters.
-  acquire(&uart_tx_lock);
-  uartstart();
-  release(&uart_tx_lock);
+  if (val & (UART_LSR_TEMT | UART_LSR_THRE)) { // TX interrupt
+    // send buffered characters.
+    acquire(&uart_tx_lock);
+    uartstart();
+    release(&uart_tx_lock);
+  }
 }
