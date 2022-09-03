@@ -11,7 +11,6 @@ entryother
 initcode
 initcode.out
 kernelmemfs
-mkfs
 kernel/kernel
 kernel/kernel.bin
 kernel/kernel.asm
