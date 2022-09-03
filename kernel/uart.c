@@ -180,4 +180,10 @@ uartintr(void)
     uartstart();
     release(&uart_tx_lock);
   }
+
+  // clear busy condition
+  val = read32(addr + UART_IIR);
+  if (val == UART_IIR_BSY) {
+    val = read32(addr + UART_USR);
+  }
 }
