@@ -29,7 +29,7 @@
 
 static void set_pll_cpux_axi(void)
 {
-    uint32_t val;
+    uint32 val;
 
     /* Select cpux clock src to osc24m, axi divide ratio is 3, system apb clk ratio is 4 */
     write32(D1_CCU_BASE + CCU_RISCV_CLK_REG, (0 << 24) | (3 << 8) | (1 << 0));
@@ -87,7 +87,7 @@ static void set_pll_cpux_axi(void)
 
 static void set_pll_periph0(void)
 {
-    uint32_t val;
+    uint32 val;
 
     /* Periph0 has been enabled */
     if(read32(D1_CCU_BASE + CCU_PLL_PERI0_CTRL_REG) & (1 << 31))
@@ -146,7 +146,7 @@ static void set_dma(void)
 
 static void set_mbus(void)
 {
-    uint32_t val;
+    uint32 val;
 
     /* Reset mbus domain */
     val = read32(D1_CCU_BASE + CCU_MBUS_CLK_REG);
@@ -157,7 +157,7 @@ static void set_mbus(void)
 
 static void set_module(virtual_addr_t addr)
 {
-    uint32_t val;
+    uint32 val;
 
     if(!(read32(addr) & (1 << 31)))
     {
@@ -180,9 +180,9 @@ static void set_module(virtual_addr_t addr)
     }
 }
 
-void clk_enable_module_uart(virtual_addr_t addr, uint8_t uart_num)
+void clk_enable_module_uart(virtual_addr_t addr, uint8 uart_num)
 {
-    uint32_t val;
+    uint32 val;
     /* Open the clock gate for uart */
     val = read32(addr);
     val |= 1 << (0 + uart_num);

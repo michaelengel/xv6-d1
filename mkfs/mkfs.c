@@ -29,34 +29,34 @@ int nblocks;  // Number of data blocks
 int fsfd;
 struct superblock sb;
 char zeroes[BSIZE];
-uint freeinode = 1;
-uint freeblock;
+unsigned int freeinode = 1;
+unsigned int freeblock;
 
 
 void balloc(int);
-void wsect(uint, void*);
-void winode(uint, struct dinode*);
-void rinode(uint inum, struct dinode *ip);
-void rsect(uint sec, void *buf);
-uint ialloc(ushort type);
-void iappend(uint inum, void *p, int n);
+void wsect(unsigned int, void*);
+void winode(unsigned int, struct dinode*);
+void rinode(unsigned int inum, struct dinode *ip);
+void rsect(unsigned int sec, void *buf);
+unsigned int ialloc(unsigned short type);
+void iappend(unsigned int inum, void *p, int n);
 
 // convert to intel byte order
-ushort
-xshort(ushort x)
+unsigned short
+xshort(unsigned short x)
 {
-  ushort y;
-  uchar *a = (uchar*)&y;
+  unsigned short y;
+  unsigned char *a = (unsigned char*)&y;
   a[0] = x;
   a[1] = x >> 8;
   return y;
 }
 
-uint
-xint(uint x)
+unsigned int
+xint(unsigned int x)
 {
-  uint y;
-  uchar *a = (uchar*)&y;
+  unsigned int y;
+  unsigned char *a = (unsigned char*)&y;
   a[0] = x;
   a[1] = x >> 8;
   a[2] = x >> 16;
@@ -68,7 +68,7 @@ int
 main(int argc, char *argv[])
 {
   int i, cc, fd;
-  uint rootino, inum, off;
+  unsigned int rootino, inum, off;
   struct dirent de;
   char buf[BSIZE];
   struct dinode din;
@@ -176,7 +176,7 @@ main(int argc, char *argv[])
 }
 
 void
-wsect(uint sec, void *buf)
+wsect(unsigned int sec, void *buf)
 {
   if(lseek(fsfd, sec * BSIZE, 0) != sec * BSIZE){
     perror("lseek");
@@ -189,10 +189,10 @@ wsect(uint sec, void *buf)
 }
 
 void
-winode(uint inum, struct dinode *ip)
+winode(unsigned int inum, struct dinode *ip)
 {
   char buf[BSIZE];
-  uint bn;
+  unsigned int bn;
   struct dinode *dip;
 
   bn = IBLOCK(inum, sb);
@@ -203,10 +203,10 @@ winode(uint inum, struct dinode *ip)
 }
 
 void
-rinode(uint inum, struct dinode *ip)
+rinode(unsigned int inum, struct dinode *ip)
 {
   char buf[BSIZE];
-  uint bn;
+  unsigned int bn;
   struct dinode *dip;
 
   bn = IBLOCK(inum, sb);
@@ -216,7 +216,7 @@ rinode(uint inum, struct dinode *ip)
 }
 
 void
-rsect(uint sec, void *buf)
+rsect(unsigned int sec, void *buf)
 {
   if(lseek(fsfd, sec * BSIZE, 0) != sec * BSIZE){
     perror("lseek");
@@ -228,10 +228,10 @@ rsect(uint sec, void *buf)
   }
 }
 
-uint
-ialloc(ushort type)
+unsigned int
+ialloc(unsigned short type)
 {
-  uint inum = freeinode++;
+  unsigned int inum = freeinode++;
   struct dinode din;
 
   bzero(&din, sizeof(din));
@@ -245,7 +245,7 @@ ialloc(ushort type)
 void
 balloc(int used)
 {
-  uchar buf[BSIZE];
+  unsigned char buf[BSIZE];
   int i;
 
   printf("balloc: first %d blocks have been allocated\n", used);
@@ -261,14 +261,14 @@ balloc(int used)
 #define min(a, b) ((a) < (b) ? (a) : (b))
 
 void
-iappend(uint inum, void *xp, int n)
+iappend(unsigned int inum, void *xp, int n)
 {
   char *p = (char*)xp;
-  uint fbn, off, n1;
+  unsigned int fbn, off, n1;
   struct dinode din;
   char buf[BSIZE];
-  uint indirect[NINDIRECT];
-  uint x;
+  unsigned int indirect[NINDIRECT];
+  unsigned int x;
 
   rinode(inum, &din);
   off = xint(din.size);

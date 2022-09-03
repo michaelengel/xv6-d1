@@ -51,7 +51,7 @@ start()
   // ask for clock interrupts.
   timerinit();
 
-  *(uint32_t *)PLIC_CTRL = 1;
+  *(uint32 *)PLIC_CTRL = 1;
 
   // keep each CPU's hartid in its tp register, for cpuid().
   int id = r_mhartid();
@@ -73,7 +73,7 @@ timerinit()
   // ask the CLINT for a timer interrupt.
   int interval = 1000000; // cycles; about 1/10th second in qemu.
 
-  uint64_t t = r_mtime() + 10000000;
+  uint64 t = r_mtime() + 10000000;
   *(uint32*)CLINT_MTIMECMP(id) = t & 0xffffffff;
   *(uint32*)(CLINT_MTIMECMP(id)+4) = t >> 32; // ???
 

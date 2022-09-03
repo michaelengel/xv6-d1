@@ -59,7 +59,7 @@ printptr(uint64 x)
     consputc(digits[x >> (sizeof(uint64) * 8 - 4)]);
 }
 
-extern void sys_uart_putc(uint8_t num, char c);
+extern void sys_uart_putc(uint8 num, char c);
 
 // Print to the console. only understands %d, %x, %p, %s.
 void

@@ -4,19 +4,15 @@
 #include "types.h"
 
 typedef unsigned long virtual_addr_t;
-typedef unsigned int u32_t;
 
-typedef unsigned long uint64_t;
-typedef unsigned int uint32_t;
-
-static inline void write32(virtual_addr_t addr, u32_t value)
+static inline void write32(virtual_addr_t addr, uint32 value)
 {
-    *((volatile u32_t *)(addr)) = value;
+    *((volatile uint32 *)(addr)) = value;
 }
 
-static inline u32_t read32(virtual_addr_t addr)
+static inline uint32 read32(virtual_addr_t addr)
 {
-    return( *((volatile u32_t *)(addr)));
+    return( *((volatile uint32 *)(addr)));
 }
 
 void sdelay(unsigned long us);

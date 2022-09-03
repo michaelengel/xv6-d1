@@ -1,11 +1,11 @@
 #include "gpio.h"
 #include "common.h"
 
-void d1_set_gpio_mode(uint32_t gpio_port, uint32_t gpio_pin, uint16_t mode)
+void d1_set_gpio_mode(uint32 gpio_port, uint32 gpio_pin, uint16 mode)
 {
-    uint32_t pin_level = 0;
-    uint32_t gpio_base_addr = 0;
-    uint32_t val = 0;
+    uint32 pin_level = 0;
+    uint32 gpio_base_addr = 0;
+    uint32 val = 0;
     pin_level = gpio_pin / 8;
     gpio_base_addr = gpio_port + pin_level * 0x04;
     val = read32(gpio_base_addr);
@@ -16,12 +16,12 @@ void d1_set_gpio_mode(uint32_t gpio_port, uint32_t gpio_pin, uint16_t mode)
     write32(gpio_base_addr, val);
 }
 
-void d1_set_gpio_val(uint32_t gpio_port, uint32_t gpio_pin, uint32_t val)
+void d1_set_gpio_val(uint32 gpio_port, uint32 gpio_pin, uint32 val)
 {
     
 }
 
-uint8_t d1_get_gpio_val(uint32_t gpio_port, uint32_t gpio_pin)
+uint8 d1_get_gpio_val(uint32 gpio_port, uint32 gpio_pin)
 {
     return 0;
 }

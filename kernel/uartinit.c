@@ -6,7 +6,7 @@
 #define UART0_MODE_TX   (6)
 #define UART0_MODE_RX   (6)
 
-void sys_uart_putc(uint8_t uart_num, char c)
+void sys_uart_putc(uint8 uart_num, char c)
 {
     virtual_addr_t addr = UART_BASE + uart_num * 0x4000;
 
@@ -14,7 +14,7 @@ void sys_uart_putc(uint8_t uart_num, char c)
     write32(addr + UART_THR, c);
 }
 
-char sys_uart_getc(uint8_t uart_num)
+char sys_uart_getc(uint8 uart_num)
 {
     virtual_addr_t addr = UART_BASE + uart_num * 0x4000;
     if((read32(addr + UART_LSR) & UART_LSR_DR))
@@ -30,7 +30,7 @@ char sys_uart_getc(uint8_t uart_num)
 void sys_uart0_init(void)
 {
     virtual_addr_t addr;
-    u32_t val;
+    uint32 val;
 
 	/* Config GPIOB8 and GPIOB9 to txd0 and rxd0 */
 	addr = 0x02000030 + 0x04;

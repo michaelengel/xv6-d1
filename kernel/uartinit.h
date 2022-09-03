@@ -59,7 +59,7 @@
 #define UART_LSR_BRK_ERROR_BITS	0x1E    /* BI, FE, PE, OE bits */
 
 void sys_uart0_init(void);
-void sys_uart_putc(uint8_t uart_num, char c);
-char sys_uart_getc(uint8_t uart_num);
+void sys_uart_putc(uint8 uart_num, char c);
+char sys_uart_getc(uint8 uart_num);
 
 #endif
