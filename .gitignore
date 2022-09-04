@@ -14,6 +14,7 @@ kernelmemfs
 kernel/kernel
 kernel/kernel.bin
 kernel/kernel.asm
+mkfs/mkfs
 user/usys.S
 fs.img
 .gdbinit
