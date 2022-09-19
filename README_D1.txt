@@ -26,6 +26,12 @@ USB-C (use the OTG port, which can also power the board):
   xfel ddr ddr3; xfel write 0x40000000 ../xv6-d1/kernel/kernel.bin; \\
   xfel exec 0x40000000
 
+- ONLY FOR MANGOPI MQ-PRO: on a MangoPi MQ-Pro, xfel ddr ddr3 does not seem to
+  work, xfel ddr d1 can be used instead:
+
+  xfel ddr d1; xfel write 0x40000000 ../xv6-d1/kernel/kernel.bin; \\
+  xfel exec 0x40000000
+
 - Start a terminal emulator on /dev/ttyUSB0 (or whereever the UART 
   of the D1 is mapped to), parameters 115200 bps, 8N1
 
