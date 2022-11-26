@@ -23,7 +23,7 @@ USB-C (use the OTG port, which can also power the board):
 - Load and run the DDR3 RAM init code, then load the kernel to 
   physical address 0x40000000 and start it:
 
-  xfel ddr ddr3; xfel write 0x40000000 ../xv6-d1/kernel/kernel.bin; \\
+  xfel ddr d1; xfel write 0x40000000 ../xv6-d1/kernel/kernel.bin; \\
   xfel exec 0x40000000
 
 - Start a terminal emulator on /dev/ttyUSB0 (or whereever the UART 
